@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
 
 const Movie = require('../models/movie');
-const {
-  NotUnique,
-  BadRequest,
-  Unauthorized,
-  NotFound,
-  Forbidden
-} = require('../middlewares/controlErrors');
+const { BadRequest, NotFound, Forbidden } = require('../middlewares/controlErrors');
 // GET /movies возвращает все сохранённые текущим пользователем фильмы
 function getMovies(req, res, next) {
   const id = req.user._id;

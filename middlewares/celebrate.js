@@ -23,8 +23,9 @@ const celebrateSchemaLogin = celebrate({
 // Users
 // GET /users/me
 const celebrateSchemaGetUserMe = celebrate({
-  params: Joi.object().keys({
-    id: Joi.string().hex().length(24)
+  cookies: Joi.object().keys({
+    jwt: Joi.string()
+    //.hex().length(24).required()
   })
 });
 // PATCH /users/me
@@ -37,8 +38,8 @@ const celebrateSchemaPatchUserMe = celebrate({
 // Movies
 // GET /movies
 const celebrateSchemaGetMovies = celebrate({
-  params: Joi.object().keys({
-    owner: Joi.string().hex().length(24)
+  cookies: Joi.object().keys({
+    jwt: Joi.string()
   })
 });
 // POST /movies

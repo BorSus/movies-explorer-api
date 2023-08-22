@@ -7,7 +7,6 @@ const { createToken } = require('../middlewares/authorization');
 async function postNewUser(req, res, next) {
   try {
     const { email, password, name } = req.body;
-    console.log(email, password, name);
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hashPassword, name });
     res.status(201).send({

@@ -6,6 +6,7 @@ const {
   celebrateSchemaPostMovie,
   celebrateSchemaDeleteMovie
 } = require('../middlewares/celebrate');
+
 // GET /movies возвращает все сохранённые текущим пользователем фильмы
 router.get('/', celebrateSchemaGetMovies, getMovies);
 // POST /movies создаёт фильм с переданными в теле:

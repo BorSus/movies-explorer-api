@@ -6,10 +6,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 // Централизованый обработчик ошибок
 const { controlErrors } = require('./middlewares/controlErrors');
 
-const { secretKey, originUrlCORS, PORT, DB_URL } = require('./config');
+const { originUrlCORS, PORT, DB_URL } = require('./config');
 
 const app = express();
 app.use(cookieParser());
@@ -25,11 +26,14 @@ mongoose
     console.log(`Соединение с БД ==> ОШИБКА: ${err}`);
   });
 
+app.use(requestLogger);
 // Подключение маршрутов
 app.use('/', require('./routes/index'));
-// обработчик ошибок celebrate
+// Подключение логгер ошибок
+app.use(errorLogger);
+// Подключение обработчик ошибок celebrate
 app.use(errors());
-// централизованный обработчик ошибок
+// Подключение централизованный обработчик ошибок
 app.use(controlErrors);
 // Порт приложения
 app.listen(PORT, () => {
