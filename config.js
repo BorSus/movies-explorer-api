@@ -9,8 +9,8 @@ const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-k
 // массив URL для CORS
 const originUrlCORS = [
   'http://localhost:3001',
-  'http://mesto.sustavov.nomoreparties.co',
-  'https://mesto.sustavov.nomoreparties.co'
+  'http://kinopoisk.sustavov.nomoredomainsicu.ru',
+  'https://kinopoisk.sustavov.nomoredomainsicu.ru'
 ];
 
 // Порт и БД

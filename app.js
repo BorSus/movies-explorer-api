@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 // Централизованый обработчик ошибок
 const { controlErrors } = require('./middlewares/controlErrors');
@@ -13,6 +14,12 @@ const { controlErrors } = require('./middlewares/controlErrors');
 const { originUrlCORS, PORT, DB_URL } = require('./config');
 
 const app = express();
+app.use(
+  cors({
+    origin: originUrlCORS,
+    credentials: true
+  })
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 
