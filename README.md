@@ -11,6 +11,10 @@
 `npm run start` — запускает сервер  
 `npm run dev` — запускает сервер с hot-reload
 
+## Адрес домена сервера
+
+https://api.kinopoisk.sustavov.nomoredomainsicu.ru
+
 ## Ссылка на репозиторий GH
 
 https://github.com/BorSus/movies-explorer-api

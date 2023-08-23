@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "npx eslint ."
+    "lint": "npx eslint . --fix"
   },
   "author": "Boris Sustavov",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "dotenv": "^16.3.1",
     "editorconfig": "^2.0.0",
     "express": "^4.18.2",
+    "express-rate-limit": "^6.9.0",
     "express-winston": "^4.2.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",

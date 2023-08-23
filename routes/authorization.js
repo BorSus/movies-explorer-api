@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { postNewUser, login, logout } = require('../controllers/user');
 const { celebrateSchemaPostNewUser, celebrateSchemaLogin } = require('../middlewares/celebrate');
-
+const { createUserLimit } = require('../middlewares/rateLimiter');
 // POST /signup создаёт пользователя с переданными в теле:
 /*
 {
@@ -10,12 +10,10 @@ const { celebrateSchemaPostNewUser, celebrateSchemaLogin } = require('../middlew
   "name": "TestUser"
      }
    */
-router.post('/signup', celebrateSchemaPostNewUser, postNewUser);
+router.post('/signup', createUserLimit, celebrateSchemaPostNewUser, postNewUser);
 // POST /signin - проверка пользователя, получение JWT
 router.post('/signin', celebrateSchemaLogin, login);
 // GET /signout - выход пользователя, очитска JWT из cookies
 router.get('/signout', logout);
-
-//router.use(checkAuthorization);
 
 module.exports = router;

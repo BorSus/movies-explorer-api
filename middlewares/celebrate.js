@@ -25,7 +25,7 @@ const celebrateSchemaLogin = celebrate({
 const celebrateSchemaGetUserMe = celebrate({
   cookies: Joi.object().keys({
     jwt: Joi.string()
-    //.hex().length(24).required()
+    // .hex().length(24).required()
   })
 });
 // PATCH /users/me
@@ -52,7 +52,6 @@ const celebrateSchemaPostMovie = celebrate({
     description: Joi.string().required(),
     image: Joi.string().regex(regexURL).required(),
     trailerLink: Joi.string().regex(regexURL).required(),
-    thumbnail: Joi.string().regex(regexURL).required(),
     thumbnail: Joi.string().regex(regexURL).required(),
     owner: Joi.string().hex().length(24),
     movieId: Joi.number().required(),

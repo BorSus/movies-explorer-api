@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const Movie = require('../models/movie');
-const { BadRequest, NotFound, Forbidden } = require('../middlewares/controlErrors');
+const NotFound = require('../utils/errors/not-found');
+const BadRequest = require('../utils/errors/bad-request');
+const Forbidden = require('../utils/errors/no-access');
 // GET /movies возвращает все сохранённые текущим пользователем фильмы
 function getMovies(req, res, next) {
   const id = req.user._id;
@@ -68,7 +70,6 @@ async function deleteMovie(req, res, next) {
       message: `Фильм id[${id}] удалён`
     });
   } catch (err) {
-    console.log(err.name);
     if (err instanceof mongoose.Error.CastError) {
       next(new BadRequest(`Переданный id [${id}] фильма некорректный`));
       return;

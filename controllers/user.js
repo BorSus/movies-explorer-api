@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const { NotUnique, BadRequest, Unauthorized, NotFound } = require('../middlewares/controlErrors');
+const NotFound = require('../utils/errors/not-found');
+const BadRequest = require('../utils/errors/bad-request');
+const NotUnique = require('../utils/errors/not-unique');
+const Unauthorized = require('../utils/errors/unauthorized');
 const { createToken } = require('../middlewares/authorization');
 // POST /signup создаёт пользователя
 async function postNewUser(req, res, next) {
@@ -70,7 +73,7 @@ async function getUsersMe(req, res, next) {
   const id = req.user._id;
   try {
     const user = await User.findById(id).orFail();
-    return res.send(user);
+    res.send(user);
   } catch (err) {
     if (err instanceof mongoose.Error.CastError) {
       throw new BadRequest(`Переданный id [${id}] пользователя некорректный`);
@@ -88,6 +91,10 @@ function patchUserMe(req, res, next) {
     .orFail()
     .then(user => res.status(200).send(user))
     .catch(err => {
+      if (err.code === 11000) {
+        next(new NotUnique(`Пользователь с таким email уже зарегистрирован`));
+        return;
+      }
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequest(

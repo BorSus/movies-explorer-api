@@ -4,13 +4,14 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 // Централизованый обработчик ошибок
 const { controlErrors } = require('./middlewares/controlErrors');
-
+const { fullLimit } = require('./middlewares/rateLimiter');
 const { originUrlCORS, PORT, DB_URL } = require('./config');
 
 const app = express();
@@ -35,7 +36,7 @@ mongoose
 
 app.use(requestLogger);
 // Подключение маршрутов
-app.use('/', require('./routes/index'));
+app.use('/', fullLimit, require('./routes/index'));
 // Подключение логгер ошибок
 app.use(errorLogger);
 // Подключение обработчик ошибок celebrate
