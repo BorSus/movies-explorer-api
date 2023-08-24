@@ -2,13 +2,12 @@ const router = require('express').Router();
 
 const { getMovies, postMovie, deleteMovie } = require('../controllers/movie');
 const {
-  celebrateSchemaGetMovies,
   celebrateSchemaPostMovie,
   celebrateSchemaDeleteMovie
 } = require('../middlewares/celebrate');
 
 // GET /movies возвращает все сохранённые текущим пользователем фильмы
-router.get('/', celebrateSchemaGetMovies, getMovies);
+router.get('/', getMovies);
 // POST /movies создаёт фильм с переданными в теле:
 /*
   {

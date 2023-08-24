@@ -67,7 +67,6 @@ function logout(req, res) {
     .clearCookie('jwt', { secure: true, sameSite: 'none' })
     .send({ message: 'Пользователь больше не авторизован,токен удален из cookies' });
 }
-
 // GET /users/me возвращает информацию о пользователе (email и имя)
 async function getUsersMe(req, res, next) {
   const id = req.user._id;

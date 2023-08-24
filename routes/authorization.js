@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { postNewUser, login, logout } = require('../controllers/user');
 const { celebrateSchemaPostNewUser, celebrateSchemaLogin } = require('../middlewares/celebrate');
-const { createUserLimit } = require('../middlewares/rateLimiter');
+const { createUserLimit } = require('../middlewares/rateLimiter'); // rate limiter число запросов с одного IP за 1час ограничение 10.
 // POST /signup создаёт пользователя с переданными в теле:
 /*
 {

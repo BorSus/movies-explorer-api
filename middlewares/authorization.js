@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
-
 const Unauthorized = require('../utils/errors/bad-request');
-
 const { secretKey } = require('../config');
 
 function createToken(payload) {
@@ -18,14 +16,12 @@ function checkAuthorization(req, res, next) {
   if (!token) {
     return next(new Unauthorized(`JWT из cookies не получен`));
   }
-
   try {
     const payload = checkToken(token);
     req.user = payload;
   } catch (_) {
     return next(new Unauthorized(`Токен не прошел проверку`));
   }
-
   return next();
 }
 

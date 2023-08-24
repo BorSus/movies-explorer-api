@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-
 const Movie = require('../models/movie');
 const NotFound = require('../utils/errors/not-found');
 const BadRequest = require('../utils/errors/bad-request');
 const Forbidden = require('../utils/errors/no-access');
+
 // GET /movies возвращает все сохранённые текущим пользователем фильмы
 function getMovies(req, res, next) {
   const id = req.user._id;
@@ -65,7 +65,7 @@ async function deleteMovie(req, res, next) {
     if (movie.owner.toString() !== owner) {
       throw new Forbidden(`Запрещено удалять фильмы чужих пользователей`);
     }
-    movie.deleteOne();
+    await movie.deleteOne();
     res.status(200).send({
       message: `Фильм id[${id}] удалён`
     });

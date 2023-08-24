@@ -21,13 +21,6 @@ const celebrateSchemaLogin = celebrate({
 });
 
 // Users
-// GET /users/me
-const celebrateSchemaGetUserMe = celebrate({
-  cookies: Joi.object().keys({
-    jwt: Joi.string()
-    // .hex().length(24).required()
-  })
-});
 // PATCH /users/me
 const celebrateSchemaPatchUserMe = celebrate({
   body: Joi.object().keys({
@@ -36,12 +29,6 @@ const celebrateSchemaPatchUserMe = celebrate({
   })
 });
 // Movies
-// GET /movies
-const celebrateSchemaGetMovies = celebrate({
-  cookies: Joi.object().keys({
-    jwt: Joi.string()
-  })
-});
 // POST /movies
 const celebrateSchemaPostMovie = celebrate({
   body: Joi.object().keys({
@@ -53,7 +40,6 @@ const celebrateSchemaPostMovie = celebrate({
     image: Joi.string().regex(regexURL).required(),
     trailerLink: Joi.string().regex(regexURL).required(),
     thumbnail: Joi.string().regex(regexURL).required(),
-    owner: Joi.string().hex().length(24),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required()
@@ -69,9 +55,7 @@ const celebrateSchemaDeleteMovie = celebrate({
 module.exports = {
   celebrateSchemaPostNewUser,
   celebrateSchemaLogin,
-  celebrateSchemaGetUserMe,
   celebrateSchemaPatchUserMe,
-  celebrateSchemaGetMovies,
   celebrateSchemaPostMovie,
   celebrateSchemaDeleteMovie
 };
